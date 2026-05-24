@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EVOLUTION VIP BRASIL</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background-color: #0d121c;
+            
+            /* Imagem do Dragão Neon Azul */
+            background-image: linear-gradient(to bottom, rgba(13, 18, 28, 0.2), rgba(13, 18, 28, 0.5)), 
+                              url('https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=1500&auto=format&fit=crop'); 
+            
+            /* Estica o fundo para os lados para permitir o movimento da câmera */
+            background-size: 200% auto; 
+            background-repeat: repeat-x;
+            background-position: center;
+            
+            /* Faz o Dragão se mover sozinho em 3D bem suave */
+            animation: moverDragao 20s ease-in-out infinite;
+        }
+
+        /* Animação de vai e vem para o Dragão de fundo */
+        @keyframes moverDragao {
+            0% { background-position: 0% center; }
+            50% { background-position: 100% center; }
+            100% { background-position: 0% center; }
+        }
+
+        /* --- ALTERAÇÃO AQUI: CARD MUITO MAIS TRANSPARENTE --- */
+        .card-bg { 
+            /* Mudei a opacidade de 0.82 para 0.25 (bem transparente) */
+            background-color: rgba(17, 24, 39, 0.25); 
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .input-divider { border-color: rgba(255, 255, 255, 0.05); }
+        
+        /* Mantive o botão Iniciar opaco para ele se destacar */
+        .btn-iniciar { background-color: #1b2434; }
+
+        /* --- ALTERAÇÃO AQUI: BOTÃO INFERIOR TRANSPARENTE --- */
+        .btn-unknown { 
+            /* Mudei a opacidade de 0.85 para 0.2 (bem transparente) */
+            background-color: rgba(15, 21, 32, 0.2); 
+            backdrop-filter: blur(4px);
+        }
+        
+        /* Cores das operadoras */
+        .op-vivo { color: #660099; }
+        .op-tim { color: #003399; }
+        .op-claro { color: #ff0000; }
+
+        /* Nome mudando de cor RGB automaticamente */
+        .nome-animado {
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            background: linear-gradient(to right, #00f2fe, #4facfe, #ff0844, #ffb199, #00f2fe);
+            background-size: 400% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradienteEfeito 6s linear infinite;
+        }
+
+        @keyframes gradienteEfeito {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen text-white select-none">
+
+    <header class="w-full bg-[#0d121c]/40 backdrop-blur-sm px-4 py-3 flex items-center justify-between border-b border-white/5">
+        <div>
+            <h1 class="text-lg nome-animado">
+                EVOLUTION VIP BRASIL ⚡
+            </h1>
+            <p class="text-xs text-gray-400">Visualização</p>
+        </div>
+        <div class="flex items-center gap-1 text-gray-400">
+            <button class="p-2 hover:text-white"><i class="fa-regular fa-file-lines text-base"></i></button>
+            <button class="p-2 hover:text-white"><i class="fa-solid fa-database text-base"></i></button>
+            <button class="p-2 hover:text-white"><i class="fa-solid fa-ellipsis-vertical text-base"></i></button>
+        </div>
+    </header>
+
+    <main class="flex-1 flex flex-col justify-center items-center p-4">
+        <div class="w-full max-w-sm flex flex-col gap-5">
+            
+            <div class="card-bg rounded-3xl p-5 flex flex-col gap-2">
+                
+                <div id="btnConfig" class="flex items-center justify-between py-2 cursor-pointer hover:bg-white/5 p-1 rounded-lg transition-colors">
+                    <div class="flex items-center gap-3">
+                        <i id="configIcon" class="fa-regular fa-file-alt text-gray-400 text-lg"></i>
+                        <span id="configText" class="text-xs font-bold tracking-wide uppercase text-gray-200">Escolha uma configuração</span>
+                    </div>
+                    <i class="fa-solid fa-play text-gray-400 text-xs"></i>
+                </div>
+                
+                <div class="border-b input-divider"></div>
+
+                <div class="flex items-center gap-3 py-2">
+                    <i class="fa-regular fa-user text-gray-400 text-lg w-5 text-center"></i>
+                    <input type="text" placeholder="Nome de usuario" class="w-full bg-transparent outline-none text-gray-300 placeholder-gray-500 text-base">
+                </div>
+
+                <div class="border-b input-divider"></div>
+
+                <div class="flex items-center justify-between py-2">
+                    <div class="flex items-center gap-3 w-full">
+                        <i class="fa-solid fa-lock text-gray-400 text-lg w-5 text-center"></i>
+                        <input type="password" placeholder="Senha" class="w-full bg-transparent outline-none text-gray-300 placeholder-gray-500 text-base">
+                    </div>
+                    <i class="fa-regular fa-eye text-gray-400 text-lg cursor-pointer hover:text-white"></i>
+                </div>
+
+                <div class="flex items-center gap-2 mt-4">
+                    <button class="flex-1 btn-iniciar hover:bg-slate-800 text-white font-bold py-3 px-6 rounded-xl tracking-wider active:scale-95 transition-transform text-sm">
+                        INICIAR
+                    </button>
+                    <button class="p-3 text-gray-300 hover:text-white active:scale-90 transition-transform"><i class="fa-solid fa-rotate-right text-lg"></i></button>
+                    <button class="p-3 text-gray-300 hover:text-white active:scale-90 transition-transform"><i class="fa-regular fa-file-lines text-lg"></i></button>
+                    <button class="p-3 text-gray-300 hover:text-white active:scale-90 transition-transform"><i class="fa-solid fa-database text-lg"></i></button>
+                </div>
+
+            </div>
+
+            <button class="w-full btn-unknown border border-red-950/20 text-red-600/80 font-bold py-3.5 rounded-full tracking-wider hover:bg-red-950/10 active:scale-98 transition-all text-sm uppercase">
+                Unknown
+            </button>
+
+        </div>
+    </main>
+
+    <div id="modalOperadoras" class="fixed inset-0 bg-black/70 backdrop-blur-sm flex justify-center items-end hidden z-50 p-4">
+        <div class="w-full max-w-sm card-bg rounded-t-3xl p-6 flex flex-col gap-4">
+            
+            <div class="flex justify-between items-center border-b border-white/10 pb-2">
+                <h2 class="text-sm font-bold tracking-wider text-gray-300 uppercase">Selecione uma Operadora</h2>
+                <button id="btnClose" class="text-gray-400 hover:text-white text-lg px-2"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <div onclick="selecionarOperadora('VIVO 💜', 'fa-solid fa-circle-play text-purple-400')" class="flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 cursor-pointer transition-colors">
+                    <i class="fa-solid fa-signal op-vivo text-xl w-6 text-center"></i>
+                    <span class="font-bold text-sm tracking-wide">VIVO - Internet Grátis</span>
+                </div>
+
+                <div onclick="selecionarOperadora('TIM 💙', 'fa-solid fa-circle-play text-blue-400')" class="flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 cursor-pointer transition-colors">
+                    <i class="fa-solid fa-signal op-tim text-xl w-6 text-center"></i>
+                    <span class="font-bold text-sm tracking-wide">TIM - Internet Grátis</span>
+                </div>
+
+                <div onclick="selecionarOperadora('CLARO ❤️', 'fa-solid fa-circle-play text-red-400')" class="flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 cursor-pointer transition-colors">
+                    <i class="fa-solid fa-signal op-claro text-xl w-6 text-center"></i>
+                    <span class="font-bold text-sm tracking-wide">CLARO - Internet Grátis</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const btnConfig = document.getElementById('btnConfig');
+        const modalOperadoras = document.getElementById('modalOperadoras');
+        const btnClose = document.getElementById('btnClose');
+        const configText = document.getElementById('configText');
+        const configIcon = document.getElementById('configIcon');
+
+        btnConfig.addEventListener('click', () => modalOperadoras.classList.remove('hidden'));
+        btnClose.addEventListener('click', () => modalOperadoras.classList.add('hidden'));
+        
+        modalOperadoras.addEventListener('click', (e) => {
+            if(e.target === modalOperadoras) modalOperadoras.classList.add('hidden');
+        });
+
+        function selecionarOperadora(nome, classesIcone) {
+            configText.innerText = "CONFIG: " + nome;
+            configText.classList.remove('text-gray-200');
+            configText.classList.add('text-cyan-400');
+            configIcon.className = classesIcone + " text-lg";
+            modalOperadoras.classList.add('hidden');
+        }
+    </script>
+
+</body>
+</html>
