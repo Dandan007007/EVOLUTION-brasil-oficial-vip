@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:v2ray/v2ray.dart';
+import 'package:xray_flutter/xray_flutter.dart';
 
 void main() => runApp(const FluxoVPNApp());
 
@@ -29,7 +29,7 @@ class _TelaLoginState extends State<TelaLogin> {
   final _senhaCtrl = TextEditingController();
   bool _carregando = false;
 
-  // ✅ DADOS DO SEU LINK E DOMÍNIO JÁ PREENCHIDOS!
+  // ✅ SEUS DADOS JÁ PREENCHIDOS E CORRETOS!
   static const String enderecoVps = "flox.azion.app";
   static const int portaVps = 443;
   static const String idXray = "e906df4a-eaba-4f54-978b-6df2606d4243";
@@ -138,32 +138,28 @@ class TelaPrincipal extends StatefulWidget {
 class _TelaPrincipalState extends State<TelaPrincipal> {
   bool _conectado = false;
   String _status = "Desconectado";
-  V2rayClient? _v2ray;
 
   Future<void> _conectar() async {
     setState(() => _status = "Conectando...");
     try {
-      _v2ray = V2rayClient(
-        config: V2rayConfig(
-          address: widget.endereco,
-          port: widget.porta,
-          id: widget.id,
-          path: widget.caminho,
-          security: 'tls',
-          sni: widget.sni,
-          allowInsecure: true,
-          transport: 'xhttp',
-        ),
+      await XrayFlutter.start(
+        address: widget.endereco,
+        port: widget.porta,
+        id: widget.id,
+        path: widget.caminho,
+        security: "tls",
+        sni: widget.sni,
+        allowInsecure: true,
+        type: "xhttp",
       );
-      await _v2ray?.start();
       setState(() { _conectado = true; _status = "VOCÊ ESTÁ PROTEGIDO ✅"; });
     } catch (e) {
-      setState(() => _status = "Erro: verifique usuário/senha ou configurações");
+      setState(() => _status = "Erro: verifique dados ou permissão");
     }
   }
 
   Future<void> _desconectar() async {
-    await _v2ray?.stop();
+    await XrayFlutter.stop();
     setState(() { _conectado = false; _status = "Desconectado"; });
   }
 
